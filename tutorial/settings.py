@@ -127,6 +127,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS =(
+    os.path.join(BASE_DIR, 'static')
+)
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
