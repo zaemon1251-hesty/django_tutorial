@@ -1,8 +1,7 @@
 #学習済みモデル
 #*.pt
 .github/
-#Database
-db.sqlite3
+
 #写真
 static/
 
