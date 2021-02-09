@@ -7,7 +7,7 @@ app_name = 'kakeibo'
 from django.conf.urls import handler500
 
 # 自作の 500 エラーハンドラー。
-handler500 = views.my_error_handler
+handler500 = views.my_customized_server_error
 
 urlpatterns = [
     path('kakeibo_list/', views.KakeiboListView.as_view(), name='kakeibo_list'),

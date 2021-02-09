@@ -7,14 +7,9 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .models import Category, Kakeibo
 
 
-
-def my_error_handler(request, *args, **kw):
-    import sys
-    from django.views import debug
-    from django.http import HttpResponse
-    error_html = debug.technical_500_response(request, *sys.exc_info()).content
-    return HttpResponse(error_html)
-
+#動かない
+def my_customized_server_error(request, template_name='500.html'):
+    return HttpResponseServerError('<h1>Server Error (500)だよー</h1>')
 
 #一覧表示用のDjango標準ビュー(ListView)を承継して一覧表示用のクラスを定義
 class KakeiboListView(ListView):
