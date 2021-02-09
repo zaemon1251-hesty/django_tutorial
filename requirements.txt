@@ -1,6 +1,6 @@
 django
 django-bootstrap4
---install-option="--no-deps" django-heroku
+django-heroku
 gunicorn
 dj-database-url
 whitenoise
