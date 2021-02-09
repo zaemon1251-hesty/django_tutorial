@@ -7,7 +7,7 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .models import Category, Kakeibo
 
 
-@requires_csrf_token
+
 def my_error_handler(request, *args, **kw):
     import sys
     from django.views import debug
