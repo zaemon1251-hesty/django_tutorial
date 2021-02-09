@@ -53,7 +53,6 @@ MIDDLEWARE = [
 
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'tutorial.urls'
 
@@ -157,6 +156,7 @@ except ImportError:
 
 #追加
 if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     SECRET_KEY = os.getenv('SECRET_KEY')
     # Activate Django-Heroku.
     django_heroku.settings(locals())
