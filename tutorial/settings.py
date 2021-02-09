@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -128,7 +129,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS =(
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -153,7 +154,6 @@ except ImportError:
 #追加
 if not DEBUG:
     SECRET_KEY = os.getenv('SECRET_KEY')
-    import django_heroku
     # Activate Django-Heroku.
     django_heroku.settings(locals())
 
