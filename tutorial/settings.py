@@ -53,6 +53,8 @@ MIDDLEWARE = [
 
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 ROOT_URLCONF = 'tutorial.urls'
 
 TEMPLATES = [
@@ -73,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tutorial.wsgi.application'
 
-
+ALLOWED_HOSTS = ['*','.herokuapp.com']
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -128,17 +130,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS =(
-    os.path.join(BASE_DIR, 'static'),
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+
+#STATICFILES_DIRS =(
+#    os.path.join(BASE_DIR, 'static'),
+#)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
