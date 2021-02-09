@@ -1,9 +1,7 @@
-beautifulsoup4
 django
 django-bootstrap4
-django-heroku
+--install-option="--no-deps" django-heroku
 gunicorn
 dj-database-url
 whitenoise
 psycopg2-binary
-
