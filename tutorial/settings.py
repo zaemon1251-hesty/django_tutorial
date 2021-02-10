@@ -81,10 +81,10 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'supergbzx@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASS")
-SERVER_EMAIL = 'supergbzx@gmail.com'
+#SERVER_EMAIL = 'supergbzx@gmail.com'
 
 ADMINS = [
-        ('me', 'supergbzx@gmail.com'),
+        ('me', 'hisakawa1251@gmail.com'),
 ]
 
 ALLOWED_HOSTS = ['*']
