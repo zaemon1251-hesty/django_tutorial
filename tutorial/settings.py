@@ -84,7 +84,7 @@ EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASS")
 #SERVER_EMAIL = 'supergbzx@gmail.com'
 
 ADMINS = [
-        ('me', 'supergbzx@gmail.com'),
+        ('me', 'heste.m@icloud.com'),
 ]
 
 ALLOWED_HOSTS = ['*']

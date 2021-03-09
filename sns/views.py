@@ -104,6 +104,9 @@ def groups(request):
             # 選択したGroupの取得
             sel_group = request.POST['group']
             group_obj = Group.objects.filter(title=sel_group).first()
+            if not group_obj:
+                messages.info(request, "先にグループを選択してください")
+                return redirect(to='/sns/groups')
             # チェックしたFriendsを取得
             sel_fds = request.POST.getlist('friends')
             # FriendsのUserを取得

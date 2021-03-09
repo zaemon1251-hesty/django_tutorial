@@ -21,7 +21,7 @@ class Message(models.Model):
     class Meta:
         ordering = ('-pub_date',)
 
-# Groupクラス
+# Groupクラス（最初に管理者をownerとしてmainグループを作ります。mainへの投稿はすべての人が閲覧できます。）
 class Group(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, \
             related_name='group_owner')

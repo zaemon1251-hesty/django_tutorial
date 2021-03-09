@@ -8,21 +8,21 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'index' %}" method="post">
+<form action="{% url 'sns:index' %}" method="post">
 {% csrf_token %}
 <input type="hidden" name="mode" value="__search_form__">
 {{search_form}}
 <button>Search</button>
 </form>
 <hr>
-<form action="{% url 'index' %}" method="post">
+<form action="{% url 'sns:index' %}" method="post">
 {% csrf_token %}
 <input type="hidden" name="mode" value="__check_form__">
 {{check_form}}
@@ -32,8 +32,8 @@
 <hr>
 <div class="balloon">
 <p class="message_public">
-{% if item.group.title == 'public' %}
-[public]
+{% if item.group.title == 'main' %}
+[main]
 {% endif %}</p>
 <p class="message_content">{{item.content}}</p>
 <p class="message_date"> ({{item.pub_date}})</p>
@@ -43,9 +43,9 @@
 {% endif %}
 <p class="message_owner">
     <span class="message_counter">share={{item.share_count}} good={{item.good_count}}</span>
-    "{{item.owner}}" (<a href="{% url 'add' %}?name={{item.owner}}">add friend</a>)
-    <a href="{% url 'share' item.id %}"><button>share</button></a>
-    <a href="{% url 'good' item.id %}"><button>good!</button></a>
+    "{{item.owner}}" (<a href="{% url 'sns:add' %}?name={{item.owner}}">add friend</a>)
+    <a href="{% url 'sns:share' item.id %}"><button>share</button></a>
+    <a href="{% url 'sns:good' item.id %}"><button>good!</button></a>
 </p>
 </div>
 {% endfor %}
