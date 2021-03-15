@@ -205,10 +205,6 @@ from django.utils.log import DEFAULT_LOGGING
 DEFAULT_LOGGING['handlers']['console']['filters'] = []
 
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default'].update(db_from_env)
-
 #local 
 try:
     from .local_settings import *
@@ -222,6 +218,12 @@ if not DEBUG:
     # Activate Django-Heroku.
     django_heroku.settings(locals())
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
+    if not "test" in sys.argv:
+        import dj_database_url
+        db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+        DATABASES['default'].update(db_from_env)
+
 
 
 
