@@ -193,6 +193,8 @@ LOGGING = {
         },
     }
 }
+from django.utils.log import DEFAULT_LOGGING
+DEFAULT_LOGGING['handlers']['console']['filters'] = []
 
 
 import dj_database_url
