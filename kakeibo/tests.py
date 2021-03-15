@@ -20,8 +20,8 @@ class ManagerTest(DjangoTest):
             Category(category_name="transport"),
             Category(category_name="others")
         ])
-        meal = Category.objects.get(category_name="食費")
-        trans = Category.objects.get(category_name="交通費")
+        meal = Category.objects.get(category_name="food")
+        trans = Category.objects.get(category_name="transport")
         Kakeibo.objects.bulk_create([
             Kakeibo(date=fdate, category=meal, money=2450, memo="etc"),
             Kakeibo(date=fdate, category=trans, money=1250, memo="etc")
