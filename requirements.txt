@@ -1,5 +1,5 @@
 django==2.0.6
-django-bootstrap4
+django-bootstrap4===1.0.0
 django-heroku
 gunicorn
 dj-database-url
