@@ -1,0 +1,51 @@
+version: 2
+jobs:
+
+  build:
+    docker:
+      - image: circleci/python:3.6.9
+    steps:
+      - checkout
+      # requirements.txtに変更がなければ、以前作成したPython仮想環境を復元
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+      - run:
+          name: テスト
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+            python3 manage.py makemigrations
+            python3 manage.py migrate
+            python3 manage.py test
+
+      # Python仮想環境を保管
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Heroku への mainのデプロイ
+          command: |
+            git push https://heroku:4d97cc95-ae76-45a2-a59f-e7ab9d8a5421@git.heroku.com/zaemon1251-hesty.git main
+
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
