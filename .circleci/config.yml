@@ -4,11 +4,8 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.9
-        auth:
-          username: user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment: # environment variables for primary container
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          DATABASE_URL: postgresql://user@localhost/circle_test?sslmode=disable
       
       - image: circleci/postgres:10
         auth:
@@ -16,6 +13,8 @@ jobs:
           password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
         environment: # Postgres コンテナのための環境変数
           POSTGRES_USER: user
+          #下記を書けばパスワードなしでデータベースにログインしてくれる。 
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: circle_test
     steps:
       - checkout
