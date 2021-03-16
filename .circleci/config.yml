@@ -12,6 +12,7 @@ jobs:
           username: user
           password: "" # context / project UI env-var reference
         environment: # Postgres コンテナのための環境変数
+          POSTGRES_HOST_AUTH_METHOD:trust
           POSTGRES_USER: user
           POSTGRES_DB: circle_test
     steps:
