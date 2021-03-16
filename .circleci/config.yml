@@ -4,13 +4,28 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.9
+        environment: # environment variables for primary container
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      
+      - image: circleci/postgres:10
+        environment: # Postgres コンテナのための環境変数
+          POSTGRES_USER: user
+          POSTGRES_DB: circle_test
     steps:
       - checkout
+      
       # requirements.txtに変更がなければ、以前作成したPython仮想環境を復元
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
+          
+      # Python仮想環境を保管
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          
       - run:
           name: テスト
           command: |
@@ -21,12 +36,12 @@ jobs:
             python3 manage.py makemigrations
             python3 manage.py migrate
             python3 manage.py test
-
-      # Python仮想環境を保管
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      
+      - store_test_results: # テスト サマリー (https://circleci.com/ja/docs/2.0/collect-test-data/) に表示するテスト結果をアップロードします
+          path: test-results
+      - store_artifacts: # アーティファクト (https://circleci.com/ja/docs/2.0/artifacts/) に表示するテスト サマリーをアップロードします
+          path: test-results
+          destination: tr1
           
   deploy:
     docker:
@@ -36,9 +51,13 @@ jobs:
       - run:
           name: Heroku への mainのデプロイ
           command: |
-            git push https://heroku:4d97cc95-ae76-45a2-a59f-e7ab9d8a5421@git.heroku.com/zaemon1251-hesty.git main
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/zaemon1251-hesty.git main
 
-
+machine:
+  python:
+    version: 3.6.9
+  timezone: Asia/Tokyo
+  
 workflows:
   version: 2
   build-deploy:
