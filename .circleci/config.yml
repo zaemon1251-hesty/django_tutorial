@@ -1,74 +1,7 @@
-version: 2
-jobs:
-
-  build:
-    docker:
-      - image: circleci/python:3.6.9
-        environment: # environment variables for primary container
-          POSTGRES_USER: postgres
-          PGHOST: 127.0.0.1
-          
-      - image: circleci/postgres:10
-        environment: # Postgres コンテナのための環境変数
-          POSTGRES_USER: postogres
-          #下記を書けばパスワードなしでデータベースにログインしてくれる。 
-          POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_DB: circle_test
-    steps:
-      - checkout
-      
-      # requirements.txtに変更がなければ、以前作成したPython仮想環境を復元
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          # fallback to using the latest cache if no exact match is found
-          
-      # Python仮想環境を保管
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
-          
-      - run:
-          name: テスト
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
-            python3 manage.py makemigrations
-            python3 manage.py migrate
-            python3 manage.py test
-      
-      - store_test_results: # テスト サマリー (https://circleci.com/ja/docs/2.0/collect-test-data/) に表示するテスト結果をアップロードします
-          path: test-results
-      - store_artifacts: # アーティファクト (https://circleci.com/ja/docs/2.0/artifacts/) に表示するテスト サマリーをアップロードします
-          path: test-results
-          destination: tr1
-          
-  deploy:
-    docker:
-      - image: buildpack-deps:trusty
-    steps:
-      - checkout
-      - run:
-          name: Heroku への mainのデプロイ
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/zaemon1251-hesty.git main
-
-machine:
-  python:
-    version: 3.6.9
-  timezone: Asia/Tokyo
-  
+version: 2.1
+orbs:
+  heroku: circleci/heroku@1.0.0
 workflows:
-  version: 2
-  build-deploy:
+  heroku_deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: main
+      - heroku/deploy-via-git
