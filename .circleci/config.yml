@@ -4,6 +4,9 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.9
+        auth:
+          username: user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment: # environment variables for primary container
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       
