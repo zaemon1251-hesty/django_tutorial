@@ -8,6 +8,9 @@ jobs:
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       
       - image: circleci/postgres:10
+        auth:
+          username: user
+          password: "" # context / project UI env-var reference
         environment: # Postgres コンテナのための環境変数
           POSTGRES_USER: user
           POSTGRES_DB: circle_test
