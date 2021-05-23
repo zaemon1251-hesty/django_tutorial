@@ -1,0 +1,65 @@
+<!-- 親テンプレートを読み込む-->
+{% extends 'kakeibo/base.html' %}
+{% block content %}
+ <div class="content-wrapper">
+   <div class="container-fluid">
+     <!-- パンくずリストの設定-->
+     <ol class="breadcrumb">
+       <li class="breadcrumb-item">
+         <a href="{% url 'kakeibo:kakeibo_list' %}">TOP</a>
+       </li>
+       <li class="breadcrumb-item active">カテゴリ毎の合計金額割合</li>
+     </ol>
+     <!--ページタイトル-->
+     <div class="card mb-3">
+       <div class="card-header">
+          <h3><b>家計簿アプリ（カテゴリ毎の合計金額割合）</b></h3></div>
+       <div class="card-body">
+         <!-- 円グラフの描画-->
+         <div class="chart_container">
+             <canvas id='CircleChart' style="position: relative; height:1vh; width:1vw"></canvas>
+           </div>
+       </div>
+      </div>
+   </div>
+  </div>
+  <!-- chart.jsの読み込み -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <!-- 描画する円グラフの定義-->
+  <script>
+    var ctx = document.getElementById('CircleChart').getContext('2d');
+    var data = [
+                [
+                 {% for key, value in category_dict.items%}
+                  '{{key}}',
+                 {% endfor %}
+                ],
+
+                [
+                {% for key, value in category_dict.items%}
+                   {{value}},
+                {% endfor %}
+                ]]
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+
+      data: {
+        labels: data[0],
+        datasets: [{
+          data:  data[1],
+          backgroundColor: ["rgba(255,241,15,0.8)","rgba(54,164,235,0.8)",
+          "rgba(0,255,65,0.8)","rgba(214,216,165,0.8)","rgba(255,94,25,0.8)",
+          "rgba(84,77,203,0.8)","rgba(140,140,140,0.8)","rgba(171,255,127,0.8)",
+          "rgba(50,204,18,0.8)","rgba(234,210,173,0.8)"],
+        },
+      ] }
+    });
+  </script>
+   <style>
+      .chart_container {
+          width: 640px;
+          margin: auto;
+        }
+  </style>
+
+{% endblock content %}
