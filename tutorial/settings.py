@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+from django.utils.log import DEFAULT_LOGGING
+import logging
+import sys
 import os
 import django_heroku
 
@@ -20,9 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
-
-
 
 
 # Application definition
@@ -38,13 +38,14 @@ INSTALLED_APPS = [
     'bootstrap4',
     'cms',
     'sns',
+    'shift',
 ]
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.middleware.common.CommonMiddleware', #追加
+    'django.middleware.common.CommonMiddleware',  # 追加
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tutorial.wsgi.application'
 
-#本番環境だとメールが届かない
+# 本番環境だとメールが届かない
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
@@ -84,17 +85,16 @@ EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASS")
 #SERVER_EMAIL = 'supergbzx@gmail.com'
 
 ADMINS = [
-        ('me', 'heste.m@icloud.com'),
+    ('me', 'heste.m@icloud.com'),
 ]
 
 ALLOWED_HOSTS = ['*']
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-import sys
 if 'test' in sys.argv:
     DATABASES = {
-        "default":{
+        "default": {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
@@ -110,7 +110,6 @@ else:
             'PORT': '',
         }
     }
-
 
 
 # Password validation
@@ -153,16 +152,15 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-#some sites say STATICFILED_DIR doesn't need
-#STATICFILES_DIRS =[
+# some sites say STATICFILED_DIR doesn't need
+# STATICFILES_DIRS =[
 #    os.path.join(BASE_DIR, 'static'),
-#]
+# ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 # LOG
-import logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -201,35 +199,25 @@ LOGGING = {
         },
     }
 }
-from django.utils.log import DEFAULT_LOGGING
 DEFAULT_LOGGING['handlers']['console']['filters'] = []
 
 
-#local 
+# local
 try:
     from .local_settings import *
 except ImportError:
     pass
 
 
-#追加
+# 追加
 if not DEBUG:
     SECRET_KEY = os.getenv('SECRET_KEY')
     # Activate Django-Heroku.
     django_heroku.settings(locals())
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
+
     if not "test" in sys.argv:
         import dj_database_url
-        db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+        db_from_env = dj_database_url.config(
+            conn_max_age=600, ssl_require=True)
         DATABASES['default'].update(db_from_env)
-
-
-
-
-
-
-
-
-
-

@@ -19,6 +19,7 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('kakeibo/',include('kakeibo.urls')),
-    path('sns/',include('sns.urls')),
+    path('kakeibo/', include('kakeibo.urls')),
+    path('sns/', include('sns.urls')),
+    path('shift/', include('shift.urls')),
 ]
