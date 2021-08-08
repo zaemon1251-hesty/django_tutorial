@@ -1,0 +1,45 @@
+
+{% load static %}
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>シフト管理</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timedropper/1.0/timedropper.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<body>
+    <div class="body_content">
+        <div class="body_content_inner">
+            {% block content %}
+            <!-- block content ～ endblockの間に子テンプレートの内容が差し込まれる -->
+            {% endblock %}
+        </div>
+    </div>
+</body>
+<script>
+      $(function () {
+          // datepicker
+          let dateFormat = 'yy/mm/dd';
+          $('#id_date').datepicker({
+              dateFormat: dateFormat
+          });
+
+          // timedropper
+          $("#id_start_at").timeDropper({
+              format: "H:mm",
+              setCurrentTime: false,
+          });
+
+          
+          // timedropper
+          $("#id_end_at").timeDropper({
+              format: "H:mm",
+              setCurrentTime: false,
+          });
+
+      });
+  </script>
+</html>
