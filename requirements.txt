@@ -6,3 +6,7 @@ dj-database-url
 dj-static
 whitenoise
 psycopg2-binary
+markdown
+pillow
+djangorestframework
+django-filter

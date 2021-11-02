@@ -1,20 +1,21 @@
 from django.contrib import admin
-from cms.models import Book, Impression
+from cms.models import Product, Article, BlogPost
 
 # Register your models here.
 
-class BookAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'publisher', 'page',)  # 一覧に出したい項目
-    list_display_links = ('id', 'name',)  # 修正リンクでクリックできる項目
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title',)  # 一覧に出したい項目
+    list_display_links = ('id', 'title',)  # 修正リンクでクリックできる項目
+admin.site.register(Product, ProductAdmin)
 
 
-admin.site.register(Book, BookAdmin)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title',)  # 一覧に出したい項目
+    list_display_links = ('id', 'title',)  # 修正リンクでクリックできる項目
+admin.site.register(Article, ArticleAdmin)
 
 
-class ImpressionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'comment',)
-    list_display_links = ('id', 'comment',)
-    raw_id_fields = ('book',)   # 外部キーをプルダウンにしない（データ件数が増加時のタイムアウトを予防）
-
-
-admin.site.register(Impression, ImpressionAdmin)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title',)  # 一覧に出したい項目
+    list_display_links = ('id', 'title',)  # 修正リンクでクリックできる項目
+admin.site.register(BlogPost, BlogPostAdmin)
