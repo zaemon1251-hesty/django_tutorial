@@ -4,10 +4,10 @@ from django.db import models
 
 class Product(models.Model):
     """成果物"""
-    title = models.CharField('タイトル', max_length=255)
-    description = models.CharField('記述', blank=True, max_length=2000)
+    title = models.CharField(max_length=255)
+    description = models.CharField(blank=True, max_length=2000)
     href = models.CharField(blank=True, max_length=2000)
-    eyecatch = models.ImageField()
+    eyecatch = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -19,8 +19,9 @@ class Article(models.Model):
     """記事"""
     title = models.CharField(max_length=255)
     description = models.CharField(blank=True, max_length=2000)
+    detail = models.TextField(blank=True)
     href = models.CharField(blank=True, max_length=2000)
-    eyecatch = models.ImageField()
+    eyecatch = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -32,8 +33,8 @@ class BlogPost(models.Model):
     """ブログ"""
     title = models.CharField(max_length=128)
     description = models.CharField(blank=True, max_length=2000)
-    eyecatch = models.ImageField()
-    detail = models.TextField()
+    eyecatch = models.ImageField(blank=True)
+    detail = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
