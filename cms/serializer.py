@@ -16,18 +16,24 @@ class CustomSerializer(serializers.HyperlinkedModelSerializer):
             return expanded_fields
 
 class ProductSerializer(CustomSerializer):
+    #id = serializers.Field()
     class Meta:
         model = Product
         fields = "__all__"
+        extra_fields = ["id"]
 
 
 class ArticleSerializer(CustomSerializer):
+    #id = serializers.Field()
     class Meta:
         model = Article
         fields = "__all__"
+        extra_fields = ["id"]
 
 
 class BlogPostSerializer(CustomSerializer):
+    #id = serializers.Field()
     class Meta:
         model = BlogPost
         fields = "__all__"
+        extra_fields = ["id"]
