@@ -10,3 +10,5 @@ markdown
 pillow
 djangorestframework
 django-filter
+django-storage
+boto3
