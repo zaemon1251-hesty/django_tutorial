@@ -12,3 +12,4 @@ djangorestframework
 django-filter
 django-storages
 boto3
+urllib
