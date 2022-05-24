@@ -2,9 +2,6 @@
 #*.pt
 .github/
 
-#vscode情報は要らない
-.vscode/
-
 #環境はvenvにて作成したが、gitでは管理しない
 
 venv/

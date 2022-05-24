@@ -19,13 +19,16 @@ from django.conf.urls import include, url
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import settings
+from tutorial.views.main import index
 
 urlpatterns = [
+    path('', index),
     path('admin/', admin.site.urls),
     path('kakeibo/', include('kakeibo.urls')),
     path('sns/', include('sns.urls')),
     path('shift/', include('shift.urls')),
-    url(r'^api/', include('cms.urls')),
+    path('cms/', include('cms.urls.ajax')),
+    path('api/cms/', include('cms.urls.api')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

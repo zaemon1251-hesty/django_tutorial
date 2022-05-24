@@ -4,7 +4,6 @@ import urllib.request
 import os
 # Create your models here.
 
-     
 
 class Product(models.Model):
     """成果物"""
@@ -41,13 +40,16 @@ class BlogPost(models.Model):
     detail = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.title
+
 
 def after_crud(sender, instance, *args, **kwargs):
     urllib.request.Request(os.getenv("DEPLY_HOOK_URL"), method='POST')
     print(sender)
+
+
 for model in [Product, Article, BlogPost]:
     post_save.connect(after_crud, sender=model)
     post_delete.connect(after_crud, sender=model)
