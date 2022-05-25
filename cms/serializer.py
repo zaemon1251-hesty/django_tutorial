@@ -39,13 +39,13 @@ class ArticleSerializer(CustomSerializer):
         extra_fields = ["id", "parsed_detail"]
 
     def get_parsed_detail(self, obj: Article) -> str:
-        """_summary_
+        """get parsed detail
 
         Args:
             value (str): markdown format
 
         Returns:
-            str: html
+            str: html parsed from detail
         """
         return get_html_from_text(obj.detail)
 
@@ -57,15 +57,15 @@ class BlogPostSerializer(CustomSerializer):
     class Meta:
         model = BlogPost
         fields = "__all__"
-        extra_fields = ["id"]
+        extra_fields = ["id", "parsed_detail"]
 
     def get_parsed_detail(self, obj: BlogPost) -> str:
-        """_summary_
+        """get parsed detail
 
         Args:
             value (str): markdown format
 
         Returns:
-            str: html
+            str: html parsed from detail
         """
         return get_html_from_text(obj.detail)
