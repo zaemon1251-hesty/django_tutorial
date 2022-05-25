@@ -1,7 +1,8 @@
-import django_filters
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets, filters
-from django.http import HttpResponse, JsonResponse, HttpRequest, HttpResponseNotAllowed
+from django.http import HttpResponse, JsonResponse, HttpRequest, HttpResponseNotAllowed, QueryDict
+from json import dumps
+
 from .service import get_html_from_text
 from .models import Product, Article, BlogPost
 from .serializer import ProductSerializer, ArticleSerializer, BlogPostSerializer
@@ -23,12 +24,13 @@ class BlogPostViewSet(viewsets.ModelViewSet):
 
 
 def render_markdown(request: HttpRequest):
-    # only allow POST ajax
-    if request.method == 'POST' and request.is_ajax():
-        text: str = request.POST.get('detail')
-        return JsonResponse({
+    # only allow POST & ajax
+    if request.method == "POST" and request.is_ajax():
+        dic = QueryDict(request.body, encoding='utf-8')
+        text: str = dic.get('detail')
+        return HttpResponse(dumps({
             'detail': get_html_from_text(text)
-        })
+        }), content_type='application/json')
     return HttpResponseNotAllowed(['POST'])
 
 

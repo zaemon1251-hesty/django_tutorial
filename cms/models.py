@@ -46,8 +46,9 @@ class BlogPost(models.Model):
 
 
 def after_crud(sender, instance, *args, **kwargs):
-    urllib.request.Request(os.getenv("DEPLY_HOOK_URL"), method='POST')
-    print(sender)
+    if os.getenv("DEPLY_HOOK_URL"):
+        urllib.request.Request(os.getenv("DEPLY_HOOK_URL"), method='POST')
+        print(sender)
 
 
 for model in [Product, Article, BlogPost]:

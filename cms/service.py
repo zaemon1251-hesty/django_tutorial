@@ -1,7 +1,5 @@
 import markdown
 
-md = markdown.Markdown()
-
 
 def get_html_from_text(text: str) -> str:
     """get html from text
@@ -12,4 +10,4 @@ def get_html_from_text(text: str) -> str:
     Returns:
         str: html5 format generated from the text
     """
-    return md.reset().convert(text, extensions=['fenced_code'])
+    return markdown.markdown(text, extensions=['fenced_code'])
