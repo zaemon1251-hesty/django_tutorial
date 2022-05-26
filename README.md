@@ -2,12 +2,11 @@
 
 1. django<br>
    チュートリアルをみながら作成しました。
-   単一のプロジェクト tutorial の中に
+   単一のプロジェクト tutorial の中に以下のアプリケーションが内蔵されています。CI/CD に CircleCI、デプロイに Heroku を利用してみました。
    - [kakeibo（家計簿）](https://zaemon1251-hesty.herokuapp.com/kakeibo/kakeibo_list)
    - [sns（ツイッターのような投稿機能を持つサイト）](https://zaemon1251-hesty.herokuapp.com/sns)
    - [ポートフォリオ用のコンテンツ管理アプリ（djangoの管理画面を利用）](https://zaemon1251-hesty.herokuapp.com/cms)
-   が内蔵されています。
-   CI/CD に CircleCI、デプロイに Heroku を利用してみました。
+   
 
 参考サイト
 
