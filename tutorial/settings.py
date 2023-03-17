@@ -237,12 +237,12 @@ except ImportError:
 
 # 追加
 if not DEBUG:
-    SECRET_KEY = os.getenv('SECRET_KEY')
+    # SECRET_KEY = os.getenv('SECRET_KEY')
     # Activate Django-Heroku.
-    django_heroku.settings(locals())
+    # django_heroku.settings(locals())
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-    if not "test" in sys.argv:
+    if "test" not in sys.argv:
         import dj_database_url
         db_from_env = dj_database_url.config(
             conn_max_age=600, ssl_require=True)
