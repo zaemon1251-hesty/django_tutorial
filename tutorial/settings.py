@@ -237,7 +237,7 @@ except ImportError:
 
 # 追加
 if not DEBUG:
-    # SECRET_KEY = os.getenv('SECRET_KEY')
+    SECRET_KEY = os.getenv('SECRET_KEY')
     # Activate Django-Heroku.
     # django_heroku.settings(locals())
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
