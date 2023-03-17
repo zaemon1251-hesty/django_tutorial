@@ -86,12 +86,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'supergbzx@gmail.com'
+EMAIL_HOST_USER = os.getenv('GMAIL_USER')
 EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASS")
 #SERVER_EMAIL = 'supergbzx@gmail.com'
 
 ADMINS = [
-    ('me', 'heste.m@icloud.com'),
+    ('me', os.getenv("ICLOUD_EMAIL")),
 ]
 
 ALLOWED_HOSTS = ['*']
@@ -109,11 +109,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'name',
-            'USER': 'user',
-            'PASSWORD': '',
-            'HOST': 'host',
-            'PORT': '',
+            'NAME': os.getenv('DATABASE_NAME'),
+            'USER': os.getenv('DATABASE_USER'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+            'HOST': os.getenv('DATABASE_HOST'),
+            'PORT': os.getenv('DATABASE_PORT'),
         }
     }
 
