@@ -3,9 +3,9 @@
 1. django<br>
    チュートリアルをみながら作成しました。
    単一のプロジェクト tutorial の中に以下のアプリケーションが内蔵されています。CI/CD に CircleCI、デプロイに Heroku を利用してみました。
-   - [kakeibo（家計簿）](https://zaemon1251-hesty.herokuapp.com/kakeibo/kakeibo_list)
-   - [sns（ツイッターのような投稿機能を持つサイト）](https://zaemon1251-hesty.herokuapp.com/sns)
-   - [ポートフォリオ用のコンテンツ管理アプリ（djangoの管理画面を利用）](https://zaemon1251-hesty.herokuapp.com/cms)
+   - [kakeibo（家計簿）](https://portfolio-backend-lqkw.onrender.com/kakeibo/kakeibo_list)
+   - [sns（ツイッターのような投稿機能を持つサイト）](https://portfolio-backend-lqkw.onrender.com/sns)
+   - [ポートフォリオ用のコンテンツ管理アプリ（djangoの管理画面を利用）](https://portfolio-backend-lqkw.onrender.com/cms)
    
 
 参考サイト
